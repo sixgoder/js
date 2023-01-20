@@ -22,7 +22,6 @@
 			}
 		</style>
 
-		//imgs
 		<script type="text/javascript">
 			window.onload = function() {
 
@@ -30,6 +29,8 @@
 				var next = document.getElementById("next");
 				var img = document.getElementsByTagName("img")[0];
 				var title = document.getElementById("info");
+
+				console.log(title)
 
 				var index = 0;
 				var imgsCount = 3;
@@ -46,12 +47,6 @@
 					img.src = './imgs/' + index.toString() + '\.png';
 					title.innerHTML = "一共" + imgsCount.toString() + "张，当前第" + (index + 1).toString() + "张"
 				};
-			};
-		</script>
-
-		//checkboxes
-		<script>
-			window.onload = function() {
 
 				var checkedAllBtn = document.getElementById("checkedAllBtn");
 				var checkedNoBtn = document.getElementById("checkedNoBtn");
@@ -64,19 +59,21 @@
 					for (var i = 0; i < items.length; ++i) {
 						items[i].checked = true;
 					}
-					checkedAllBtn.checked = true;
+					checkedAllBox.checked = true;
 				}
 
 				checkedNoBtn.onclick = function() {
 					for (var i = 0; i < items.length; ++i) {
 						items[i].checked = false;
 					}
+					checkedAllBox.checked = false;
 				}
 
 				checkedRevBtn.onclick = function() {
 					for (var i = 0; i < items.length; ++i) {
 						items[i].checked = !items[i].checked;
 					}
+					checkedAll();
 				}
 
 				sendBtn.onclick = function() {
@@ -97,12 +94,24 @@
 					items[i].onclick = function() {
 						if (this.checked == false) {
 							checkedAllBox.checked = false
+						} else {
+							checkedAll();
 						}
 					}
 				}
 
-			}
+				function checkedAll() {
+					var allChecked = true;
+					for (var j = 0; j < items.length; ++j) {
+						if (items[j].checked == false) {
+							allChecked = false;
+						}
+					}
+					checkedAllBox.checked = allChecked
+				}
+			};
 		</script>
+
 	</head>
 	<body>
 		<div id="outer">
