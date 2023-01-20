@@ -22,6 +22,7 @@
 			}
 		</style>
 
+		//imgs
 		<script type="text/javascript">
 			window.onload = function() {
 
@@ -47,6 +48,61 @@
 				};
 			};
 		</script>
+
+		//checkboxes
+		<script>
+			window.onload = function() {
+
+				var checkedAllBtn = document.getElementById("checkedAllBtn");
+				var checkedNoBtn = document.getElementById("checkedNoBtn");
+				var checkedRevBtn = document.getElementById("checkedRevBtn");
+				var sendBtn = document.getElementById("sendBtn");
+				var checkedAllBox = document.getElementById("checkedAllBox");
+				var items = document.getElementsByName("items");
+
+				checkedAllBtn.onclick = function() {
+					for (var i = 0; i < items.length; ++i) {
+						items[i].checked = true;
+					}
+					checkedAllBtn.checked = true;
+				}
+
+				checkedNoBtn.onclick = function() {
+					for (var i = 0; i < items.length; ++i) {
+						items[i].checked = false;
+					}
+				}
+
+				checkedRevBtn.onclick = function() {
+					for (var i = 0; i < items.length; ++i) {
+						items[i].checked = !items[i].checked;
+					}
+				}
+
+				sendBtn.onclick = function() {
+					for (var i = 0; i < items.length; ++i) {
+						if (items[i].checked == true) {
+							alert(items[i].value);
+						}
+					}
+				}
+
+				checkedAllBox.onclick = function() {
+					for (var i = 0; i < items.length; ++i) {
+						items[i].checked = this.checked;
+					}
+				}
+
+				for (var i = 0; i < items.length; ++i) {
+					items[i].onclick = function() {
+						if (this.checked == false) {
+							checkedAllBox.checked = false
+						}
+					}
+				}
+
+			}
+		</script>
 	</head>
 	<body>
 		<div id="outer">
@@ -55,5 +111,20 @@
 			<button id="next">next</button>
 			<img src="./imgs/0.png">
 		</div>
+
+		<form method="post" action="">
+			Waht's your favorite sports？<input type="checkbox" id="checkedAllBox">select all/none
+			<br />
+			<input type="checkbox" name="items" value="soccer" />soccer
+			<input type="checkbox" name="items" value="basketball" />basketball
+			<input type="checkbox" name="items" value="badminton" />badminton
+			<input type="checkbox" name="items" value="table tennis" />table tennis
+			<br />
+			<input type="button" id="checkedAllBtn" value="select all" />
+			<input type="button" id="checkedNoBtn" value="unselect all" />
+			<input type="button" id="checkedRevBtn" value="reverse select" />
+			<input type="button" id="sendBtn" value="commit" />
+
+		</form>
 	</body>
 </html>
