@@ -1,32 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script type="text/javascript">
-        var n1 = 10, n2 = 20;
-        var n = n1++;
-        console.log('n = '+n); // 10
-        console.log('n1 = '+n1); //11
-		
-		n = ++n1;
-		console.log('n = '+n); //12
-		console.log('n1 = '+n1); //12
-		
-		n = n2--;
-		console.log('n = '+n); //20
-		console.log('n2 = '+n2); //19
-		
-		n = --n2;
-		console.log('n = '+n); //18
-		console.log('n2 = '+n2); //18
-		
-		//test git config
-    </script>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<script type="text/javascript">
+			var n1 = 10,
+				n2 = 20;
+			var n = n1++;
+			console.log('n = ' + n); // 10
+			console.log('n1 = ' + n1); //11
+
+			n = ++n1;
+			console.log('n = ' + n); //12
+			console.log('n1 = ' + n1); //12
+
+			n = n2--;
+			console.log('n = ' + n); //20
+			console.log('n2 = ' + n2); //19
+
+			n = --n2;
+			console.log('n = ' + n); //18
+			console.log('n2 = ' + n2); //18
+
+			var obj = new Object();
+			var obj2 = obj;;
+			obj.name = "sdf";
+			var obj3 = {
+				name: "dd",
+				sayName: function(a) {
+					console.log(obj3.name + a)
+				}
+			}
+			console.log(obj == obj2);
+			obj3.sayName("a");
+
+			// prototype __proto__
+
+			function Person(name, age) {
+				this.name = name,
+					this.age = age
+			}
+
+			var per1 = new Person("alian", 15);
+			var per2 = new Person("Flex", 19);
+
+			Person.prototype.sayName = function() {
+				alert("hello," + this.name);
+			}
+
+			// per1.sayName();
+			// per2.sayName();
+
+			// per1 -> 原型对象 -> 原型.原型对象 -> 原型.原型.原型对象 -> ... -> Object.原型对象 -> undefined
+			console.log("sayName" in per1); //true
+			console.log(per1.hasOwnProperty("sayName")); //false
+			console.log(per1 instanceof Person); //true
+			console.log(per1.__proto__.hasOwnProperty("hasOwnProperty")); //false
+			console.log(per1.__proto__.__proto__.hasOwnProperty("hasOwnProperty")); //true
+			console.log(per1.__proto__.__proto__.__proto__); // null
+
+
+			//正则特殊字符 /w /W （Word&character） /d /D (decimal) /b /B (bounds) /s /S (space)
+			//upper means except(or not)
+			var reg = /\BChild\B/;
+			reg = /\bChild\b/;
+			console.log("reg = " + reg.test("HelloChildren"));
+
+			//用正则去除空格
+			var str = "   h  ello   ";
+			str = str.replace(/\s/g, "");
+			console.log('clear space = ' + str);
+
+			//test git config
+		</script>
+	</head>
+	<body>
+		<h1 style="font-size: 100px;">&#9760;</h1>
+	</body>
 </html>
