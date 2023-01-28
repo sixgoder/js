@@ -23,8 +23,13 @@
         #followDiv {
             width: 200px;
             height: 200px;
-            background-color: #bfa;
+            background-color: red;
             position: absolute;
+        }
+        #bgDiv{
+            width: 500px;
+            height: 500px;
+            background-color: #bfa;
         }
         body{
             height: 2000px;
@@ -36,6 +41,7 @@
             var show = document.getElementById("showMsg");
             var mouse = document.getElementById("mouseArea")
             var fdiv = document.getElementById("followDiv");
+            var bgDiv = document.getElementById("bgDiv");
 
             window.onmousemove = function(event){
                 // 兼容IE8
@@ -55,6 +61,11 @@
                 fdiv.style.left = x + sl + "px";
                 fdiv.style.top = y + st + "px";
             }
+
+            bgDiv.onmousemove = function(event){
+                event = event || window.event;
+                event.cancelBubble = true;
+            }
         }
     </script>
 </head>
@@ -63,6 +74,8 @@
     <div id="mouseArea"></div>
     <div id="showMsg"></div>
     <div id="followDiv"></div>
+    <div id="bgDiv"></div>
+
 </body>
 
 </html>`
