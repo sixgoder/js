@@ -19,20 +19,41 @@
             width: 300px;
             height: 80px;
         }
+
+        #followDiv {
+            width: 200px;
+            height: 200px;
+            background-color: #bfa;
+            position: absolute;
+        }
+        body{
+            height: 2000px;
+        }
     </style>
 
     <script>
         window.onload = function () {
             var show = document.getElementById("showMsg");
             var mouse = document.getElementById("mouseArea")
+            var fdiv = document.getElementById("followDiv");
 
-            mouse.onmousemove = function(event){
+            window.onmousemove = function(event){
+                // 兼容IE8
                 event = event || window.event;
 
                 var x = event.clientX;
                 var y = event.clientY;
 
+                // chrome认为滚动条是body的
+                // IE Firefox认为滚动条是html的
+                // 需要兼容两种情况
+                var st = document.body.scrollTop || document.documentElement.scrollTop;
+                var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
+
                 show.innerText = "x = " + x + " y = " + y;
+
+                fdiv.style.left = x + sl + "px";
+                fdiv.style.top = y + st + "px";
             }
         }
     </script>
@@ -41,6 +62,7 @@
 <body>
     <div id="mouseArea"></div>
     <div id="showMsg"></div>
+    <div id="followDiv"></div>
 </body>
 
-</html>
+</html>`
