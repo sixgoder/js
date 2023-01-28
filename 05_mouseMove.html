@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #showMsg {
+            border: 2px black solid;
+            width: 300px;
+            height: 30px;
+            margin-top: 15px;
+        }
+
+        #mouseArea {
+            border: 2px solid black;
+            width: 300px;
+            height: 80px;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            var show = document.getElementById("showMsg");
+            var mouse = document.getElementById("mouseArea")
+
+            mouse.onmousemove = function(event){
+                event = event || window.event;
+
+                var x = event.clientX;
+                var y = event.clientY;
+
+                show.innerText = "x = " + x + " y = " + y;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="mouseArea"></div>
+    <div id="showMsg"></div>
+</body>
+
+</html>
