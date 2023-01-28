@@ -35,29 +35,13 @@
                 var salary = document.getElementById("salary").value;
 
                 var tr = document.createElement("tr");
-                var nameTd = document.createElement("td");
-                var emailTd = document.createElement("td");
-                var salaryTd = document.createElement("td");
-                var delTd = document.createElement("td");
-                var a = document.createElement("a");
-                a.href = "javascript:;";
+                tr.innerHTML = "<td>" + name + "</td>" +
+                    "<td>" + email + "</td>" +
+                    "<td>" + salary + "</td>" +
+                    "<td><a href='javascript:;'>Delete</a></td>";
+
+                var a = tr.getElementsByTagName("a")[0];
                 a.onclick = delA;
-
-                var nameText = document.createTextNode(name);
-                var emailText = document.createTextNode(email);
-                var salaryText = document.createTextNode(salary);
-                var delText = document.createTextNode("Delete");
-
-                nameTd.appendChild(nameText);
-                emailTd.appendChild(emailText);
-                salaryTd.appendChild(salaryText);
-                a.appendChild(delText);
-                delTd.appendChild(a);
-
-                tr.appendChild(nameTd);
-                tr.appendChild(emailTd);
-                tr.appendChild(salaryTd);
-                tr.appendChild(delTd);
 
                 var table = document.getElementById("employeeTable");
                 var tbody = table.getElementsByTagName("tbody")[0];
