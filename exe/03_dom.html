@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+
+        var delA = function () {
+
+            var tr = this.parentNode.parentNode;
+            var name = tr.children[0].innerHTML;
+
+            var result = confirm("確認刪除" + name + "嗎?");
+            if (result) {
+                tr.parentNode.removeChild(tr);
+            }
+
+            return false;
+        }
+
+        window.onload = function () {
+            var allA = document.getElementsByTagName("a");
+            for (var i = 0; i < allA.length; ++i) {
+                allA[i].onclick = delA;
+            }
+
+            var submit = document.getElementById("addEmpButton");
+            submit.onclick = function () {
+
+                var name = document.getElementById("empName").value;
+                var email = document.getElementById("email").value;
+                var salary = document.getElementById("salary").value;
+
+                var tr = document.createElement("tr");
+                var nameTd = document.createElement("td");
+                var emailTd = document.createElement("td");
+                var salaryTd = document.createElement("td");
+                var delTd = document.createElement("td");
+                var a = document.createElement("a");
+                a.href = "javascript:;";
+                a.onclick = delA;
+
+                var nameText = document.createTextNode(name);
+                var emailText = document.createTextNode(email);
+                var salaryText = document.createTextNode(salary);
+                var delText = document.createTextNode("Delete");
+
+                nameTd.appendChild(nameText);
+                emailTd.appendChild(emailText);
+                salaryTd.appendChild(salaryText);
+                a.appendChild(delText);
+                delTd.appendChild(a);
+
+                tr.appendChild(nameTd);
+                tr.appendChild(emailTd);
+                tr.appendChild(salaryTd);
+                tr.appendChild(delTd);
+
+                var table = document.getElementById("employeeTable");
+                var tbody = table.getElementsByTagName("tbody")[0];
+                tbody.appendChild(tr);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <table id="employeeTable">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>Tom</td>
+            <td>tom@tom.com</td>
+            <td>5000</td>
+            <td><a href="javascript:;">Delete</a></td>
+        </tr>
+        <tr>
+            <td>Jerry</td>
+            <td>Jerry@jerry.com</td>
+            <td>8000</td>
+            <td><a href="deleteEmp?id=002">Delete</a></td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>Bob@bob.com</td>
+            <td>10000</td>
+            <td><a href="deleteEmp?id=003">Delete</a></td>
+        </tr>
+    </table>
+
+    <div id="formDiv">
+        <h4>add new employee</h4>
+
+        <table>
+            <tr>
+                <td class="word">name: </td>
+                <td class="inp">
+                    <input type="text" name="empName" id="empName" />
+                </td>
+            </tr>
+            <tr>
+                <td class="word">email: </td>
+                <td class="inp">
+                    <input type="text" name="email" id="email" />
+                </td>
+            </tr>
+            <tr>
+                <td class="word">salary: </td>
+                <td class="inp">
+                    <input type="text" name="salary" id="salary" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button id="addEmpButton">
+                        Submit
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
