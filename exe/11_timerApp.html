@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#box1 {
+				width: 200px;
+				height: 200px;
+				background-color: #fab;
+				position: absolute;
+				margin-top: 20px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				function getStyle(obj, name) {
+					if (window.getComputedStyle) {
+						return getComputedStyle(obj, null)[name];
+					} else {
+						//兼容IE8
+						return obj.currentStyle[name];
+					}
+				}
+
+				var btn1 = document.getElementById("btn1");
+				var box1 = document.getElementById("box1");
+				var timer;
+				btn1.onclick = function() {
+					clearInterval(timer);
+					box1.style.left = "0px";
+
+					timer = setInterval(function() {
+						var oldValue = parseInt(getStyle(box1, "left"));
+						var newValue = oldValue + 20;
+
+						newValue = Math.min(newValue, 600);
+						box1.style.left = newValue + "px";
+						if (newValue == 600) {
+							clearInterval(timer);
+						}
+					}, 30);
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<button id="btn1">click!!!!</button>
+		<div id="box1"></div>
+		<div style="width: 0; height: 300px; border-left: 1px black solid; position: absolute; left: 600px;"></div>
+	</body>
+</html>
