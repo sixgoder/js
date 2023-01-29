@@ -52,8 +52,12 @@
 				// 兼容IE8
 				filter: alpha(opacity(0.5));
 			}
-		</style>
 
+			#navDiv a:hover {
+				background-color: black;
+			}
+		</style>
+		<script src="tools.js"></script>
 		<script type="text/javascript">
 			window.onload = function() {
 				var imgList = document.getElementById("imgList");
@@ -64,10 +68,49 @@
 				var allA = navDiv.getElementsByTagName("a");
 
 				var index = 0;
+				var timer;
 
 				imgList.style.width = 520 * imgs.length + "px";
 				navDiv.style.left = (outer.offsetWidth - navDiv.offsetWidth) / 2 + "px";
 				allA[index].style.backgroundColor = "black";
+
+				for (var i = 0; i < allA.length; ++i) {
+					allA[i].num = i;
+					allA[i].onclick = function() {
+						clearInterval(timer);
+						index = this.num;
+						// imgList.style.left = -520 * index + "px";
+						move(imgList, "left", -520 * index, 30, function() {
+							autoChange();
+						});
+						resetA();
+					};
+				}
+
+				function resetA() {
+
+					if (index >= imgs.length - 1) {
+						index = 0;
+						imgList.style.left = 0;
+					}
+
+					for (var i = 0; i < allA.length; ++i) {
+						allA[i].style.backgroundColor = "";
+					}
+					allA[index].style.backgroundColor = "black";
+				}
+
+				autoChange();
+
+				function autoChange() {
+					timer = setInterval(function() {
+						index++;
+						index = index % imgs.length;
+						move(imgList, "left", -520 * index, 30, function() {
+							resetA();
+						});
+					}, 1000);
+				}
 
 			};
 		</script>
@@ -78,10 +121,9 @@
 				<li><img src="./02-图片切换练习/imgs/0.png" alt=""></li>
 				<li><img src="./02-图片切换练习/imgs/1.png" alt=""></li>
 				<li><img src="./02-图片切换练习/imgs/2.png" alt=""></li>
+				<li><img src="./02-图片切换练习/imgs/0.png" alt=""></li>
 			</ul>
 			<div id="navDiv">
-				<a href="javascript:;"></a>
-				<a href="javascript:;"></a>
 				<a href="javascript:;"></a>
 				<a href="javascript:;"></a>
 				<a href="javascript:;"></a>
