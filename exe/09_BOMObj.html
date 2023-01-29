@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<script type="text/javascript">
+		var ua = navigator.userAgent;
+		console.log(ua);
+		if (/edge/i.test(ua) || "ActiveXObject" in window) {
+			alert("Edge!");
+		} else if (/firefox/i.test(ua)) {
+			alert("firefox!");
+		} else if (/chrome/i.test(ua)) {
+			alert("chrome!");
+		} else if (/msie/i.test(ua)) {
+			alert("IE!");
+		} else if (/safari/i.test(ua)) {
+			alert("safari!");
+		}
+	</script>
+	<body>
+
+	</body>
+</html>
