@@ -12,70 +12,62 @@
 			}
 
 			#box1 {
-				width: 200px;
-				height: 200px;
+				width: 150px;
+				height: 150px;
 				background-color: #fab;
 				position: absolute;
 				margin-top: 20px;
 			}
+
+			#box2 {
+				width: 150px;
+				height: 150px;
+				background-color: #bfa;
+				position: absolute;
+				margin-top: 220px;
+			}
 		</style>
+		<script src="tools.js"></script>
 		<script type="text/javascript">
 			window.onload = function() {
 
-				// 获取元素样式
-				function getStyle(obj, name) {
-					if (window.getComputedStyle) {
-						return getComputedStyle(obj, null)[name];
-					} else {
-						//兼容IE8
-						return obj.currentStyle[name];
-					}
-				}
-
-				var timer;
-
-				// 移动函数
-				function move(obj, target, speed) {
-					clearInterval(timer);
-
-					var oldValue = parseInt(getStyle(box1, "left"));
-					if (oldValue > target) {
-						speed = -speed;
-					}
-
-					timer = setInterval(function() {
-						var newValue = oldValue + speed;
-						oldValue = newValue;
-
-						if ((speed > 0 && newValue >= target) || (speed < 0 && newValue <= target)) {
-							newValue = target;
-						}
-
-						box1.style.left = newValue + "px";
-						if (newValue == target) {
-							clearInterval(timer);
-						}
-					}, 30);
-				}
-
 				var btn1 = document.getElementById("btn1");
 				var btn2 = document.getElementById("btn2");
+				var btn3 = document.getElementById("btn3");
+				var btn4 = document.getElementById("btn4");
 				var box1 = document.getElementById("box1");
+				var box2 = document.getElementById("box2");
+
 
 				btn1.onclick = function() {
-					move(box1, 600, 30);
+					move(box1, "left", 0, 10);
 				};
 
 				btn2.onclick = function() {
-					move(box1, 0, 30);
+					move(box1, "left", 600, 30);
+				};
+
+				btn3.onclick = function() {
+					move(box2, "left", 0, 20);
+				};
+
+				btn4.onclick = function() {
+					move(box2, "width", 600, 30, function() {
+						move(box2, "height", 600, 30, function() {
+
+						});
+					});
 				};
 			};
 		</script>
 	</head>
 	<body>
-		<button id="btn2">Left!</button>
-		<button id="btn1">Right!</button>
+		<button id="btn1">box1 to Left!</button>
+		<button id="btn2">box1 to Right!</button>
+		<button id="btn3">box2 to Left!</button>
+		<button id="btn4">test</button>
 		<div id="box1"></div>
-		<div style="width: 0; height: 300px; border-left: 1px black solid; position: absolute; left: 600px;"></div>
+		<div id="box2"></div>
+		<div style="width: 0; height: 800px; border-left: 2px black solid; position: absolute; left: 600px;"></div>
 	</body>
 </html>
