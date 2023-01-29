@@ -17,23 +17,12 @@
 	<script type="text/javascript">
 		window.onload = function() {
 			var box1 = document.getElementById("box1");
+			var speed = 10;
+			var dir = 0;
 
-			document.onkeydown = function(event) {
-				event = event || window.event;
-
-				/*
-				37←
-				38↑
-				39→
-				40↓
-				*/
-				var speed = 10;
-
-				if (event.ctrlKey) {
-					speed = 50;
-				}
-
-				switch (event.keyCode) {
+			setInterval(function() {
+				console.log(dir);
+				switch (dir) {
 					case 37:
 						box1.style.left = box1.offsetLeft - speed + "px";
 						break;
@@ -47,7 +36,30 @@
 						box1.style.top = box1.offsetTop + speed + "px";
 						break;
 				}
+			}, 30);
 
+			document.onkeydown = function(event) {
+				event = event || window.event;
+
+				/*
+				37←
+				38↑
+				39→
+				40↓
+				*/
+				dir = event.keyCode;
+
+				if (event.ctrlKey) {
+					speed = 50;
+				} else {
+					speed = 10;
+				}
+
+			};
+
+			document.onkeyup = function(event) {
+				event = event || window.event;
+				dir = 0;
 			};
 		};
 	</script>
