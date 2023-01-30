@@ -19,16 +19,8 @@
 				background-color: #fba;
 			}
 		</style>
+		<script src="tools.js"></script>
 		<script type="text/javascript">
-			function toggleClass(obj, name) {
-				var reg = new RegExp("\\b" + name + "\\b");
-				if (reg.test(obj.className)) {
-					obj.className = obj.className.replace(reg, "");
-				} else {
-					obj.className += " " + name;
-				}
-			}
-
 			window.onload = function() {
 				var btn = document.getElementById("btn1");
 				var box = document.getElementById("box");

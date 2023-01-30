@@ -34,3 +34,13 @@ function move(obj, arr, target, speed, callback) {
 		}
 	}, 30);
 }
+
+// class样式切换
+function toggleClass(obj, name) {
+	var reg = new RegExp("\\b" + name + "\\b");
+	if (reg.test(obj.className)) {
+		obj.className = obj.className.replace(reg, "");
+	} else {
+		obj.className += " " + name;
+	}
+}
