@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<style type="text/css">
+			.b1 {
+				width: 200px;
+				height: 200px;
+				background-color: #fab;
+				margin-top: 20px;
+			}
+
+			.b2 {
+				width: 300px;
+				height: 400px;
+				background-color: #fba;
+			}
+		</style>
+		<script type="text/javascript">
+			function toggleClass(obj, name) {
+				var reg = new RegExp("\\b" + name + "\\b");
+				if (reg.test(obj.className)) {
+					obj.className = obj.className.replace(reg, "");
+				} else {
+					obj.className += " " + name;
+				}
+			}
+
+			window.onload = function() {
+				var btn = document.getElementById("btn1");
+				var box = document.getElementById("box");
+
+				btn.onclick = function() {
+					toggleClass(box, "b2");
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<button id="btn1">点我修改样式</button>
+		<div class="b1" id="box"></div>
+	</body>
+</html>
