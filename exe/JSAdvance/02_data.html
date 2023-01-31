@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<script type="text/javascript">
+		// var a = {
+		// 	age: 12
+		// }
+
+		// function fn2(obj) {
+		// 	obj = {
+		// 		age: 15
+		// 	}
+		// 	// obj.age = 14
+		// }
+		// fn2(a)
+		// console.log(a.age)
+
+		// function fn(obj) {
+		// 	console.log(obj.name)
+		// }
+		// var b = {
+		// 	name: "Tom"
+		// }
+		// fn(b)
+		// console.log(Date.prototype, typeof Date.prototype);
+
+		function fun() {
+
+		}
+		// fun.prototype.test = function() {
+		// 	console.log('test()')
+		// }
+		console.log(fun.prototype.__proto__)
+		console.log(Object.prototype.constructor === Object)
+
+		// 原型链 
+		console.log(fun.prototype.__proto__ === Object.prototype)
+		console.log(Function.prototype.__proto__ === Object.prototype)
+		console.log(Function.prototype === Function.__proto__) // 自己创建自己
+		console.log(Object.prototype.__proto__) // 尽头
+
+
+		// console.log(Date.prototype.constructor === Date)
+		// console.log(fun.prototype.constructor === fun)
+
+		// var fn = new fun()
+		// console.log(fn.prototype)
+		// console.log(fun.prototype)
+		// console.log(fn.__proto__ === fun.prototype)
+
+		console.log(Function.prototype instanceof Object)
+		console.log(Function.__proto__)
+		console.log(Object.prototype instanceof Object)
+		console.log(Object.__proto__)
+	</script>
+	<body>
+
+	</body>
+</html>
