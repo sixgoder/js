@@ -35,10 +35,20 @@
 		// fun.prototype.test = function() {
 		// 	console.log('test()')
 		// }
-		console.log(fun.prototype.__proto__)
-		console.log(Object.prototype.constructor === Object)
+		// console.log(fun.prototype.__proto__)
+		// console.log(Object.prototype.constructor === Object)
 
 		// 原型链 
+		// function Object().prototype -> Object.prototype
+		// Function.prototype.__proto__ -> Object.prototype
+		// Object.prototype.__proto__ -> null
+
+		// function Object().__proto__ -> Function.prototype
+		// function Function().prototype -> Function.prototype
+		// function Function().__proto__ -> Function.prototype
+
+		// Function实例的构造函数是Function对象
+		// Function构造函数创造Function对象 所以隐形原型指向自己
 		console.log(fun.prototype.__proto__ === Object.prototype)
 		console.log(Function.prototype.__proto__ === Object.prototype)
 		console.log(Function.prototype === Function.__proto__) // 自己创建自己
@@ -49,7 +59,7 @@
 		// console.log(fun.prototype.constructor === fun)
 
 		// var fn = new fun()
-		// console.log(fn.prototype)
+
 		// console.log(fun.prototype)
 		// console.log(fn.__proto__ === fun.prototype)
 
@@ -57,6 +67,87 @@
 		console.log(Function.__proto__)
 		console.log(Object.prototype instanceof Object)
 		console.log(Object.__proto__)
+
+		// const o = new TypeError(); // Inheritance: TypeError -> Error -> Object
+		const proto = Object.getPrototypeOf;
+		// console.log(proto(o).constructor === TypeError); // true
+		// console.log(proto(proto(o)).constructor === Error); // true
+		// console.log(proto(proto(proto(o))).constructor === Object); // true
+		// console.log(proto(proto(o).constructor) === Error) //true
+		// console.log(proto(proto(fn).constructor))
+
+		//program 1
+		// function A() {}
+		// A.prototype.n = 1;
+		// var b = new A()
+		// A.prototype = {
+		// 	n: 2,
+		// 	m: 3
+		// }
+
+		// var c = new A()
+		// console.log(b.n, b.m, c.n, c.m) // 1 undefined 2 3
+
+		//program 2
+		// var F = function() {}
+		// Object.prototype.a = function() {
+		// 	console.log('a()')
+		// }
+		// Function.prototype.b = function() {
+		// 	console.log('b()')
+		// }
+		// var f = new F()
+		// f.a() // a()
+		// // f.b() // f.b() is not a functionnm 
+		// F.a() // a()
+		// F.b() // b()
+
+		// 变量提升问题
+		// var a = 3
+		// fn()
+
+		// function fn() {
+		// 	console.log('fn()')
+		// 	//相当于 var a;
+		// 	console.log(a)
+		// 	var a = 4
+		// }
+
+		//执行上下文问题
+		// var a = 10
+
+		// var bar = function(x) {
+		// 	var b = 5
+		// 	foo(x + b)
+		// }
+		// var foo = function(y) {
+		// 	var c = 5
+		// 	console.log(a + c + y)
+		// }
+		// bar(10)
+
+		// function plus() {
+		// 	a = a + 1
+		// }
+		// plus()
+		// console.log(a)
+
+		// function a() {
+		// 	console.log('a()')
+		// }
+		// var a;
+		// console.log(window)
+		// a()
+
+		// var c = 1
+
+		// function c(c) {
+		// 	console.log(c)
+		// 	var c = 3
+		// }
+		// c(2)
+		c = 2;
+		console.log(c)
 	</script>
 	<body>
 
