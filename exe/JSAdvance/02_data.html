@@ -147,10 +147,36 @@
 		// 	var c = 3
 		// }
 		// c(2)
-		c = 2;
-		console.log(c)
+		// c = 2;
+		// console.log(c)
 
-		test()
+		// test()
+
+		// 定时器主线程暂停实验
+		setTimeout(function() {
+			console.log('timeout 2222')
+			alert('22222')
+		}, 2000)
+
+		setTimeout(function() {
+			console.log('timeout 1111')
+			alert('11111')
+		}, 1000)
+
+		setTimeout(function() {
+			console.log('timeout 0000')
+			alert('0000')
+		}, 0)
+
+		function fnn() {
+			console.log('fnn()')
+		}
+
+		fnn()
+
+		console.log('before alert')
+		alert('------')
+		console.log('after alert')
 	</script>
 	<body>
 
