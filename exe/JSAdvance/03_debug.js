@@ -87,15 +87,16 @@ function fun(n, o) {
 	}
 }
 
+// 始终是a这个闭包，闭包的值没变
 var a = fun(0) // undefined
-a.fun(1)
-a.fun(2)
-a.fun(3)
+a.fun(1) // 0 产生的新闭包未保存
+a.fun(2) // 0 
+a.fun(3) // 0
 
-var b = fun(0).fun(1).fun(2).fun(3)
-var c = fun(0).fun(1)
-c.fun(2)
-c.fun(3)
+var b = fun(0).fun(1).fun(2).fun(3) // 不断叠加闭包，值递增 undefine, 0, 1, 2
+var c = fun(0).fun(1) // 0 保存了叠加闭包 闭包保存的属性n当前值为1
+c.fun(2) // 1 产生的新闭包未保存
+c.fun(3) // 1
 
 //1. 原型链继承
 function Supper() {
