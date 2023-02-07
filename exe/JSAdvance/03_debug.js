@@ -49,29 +49,102 @@
 // 闭包是指有权访问另一个函数作用域中的变量的函数
 // 也就是当一个函数访问另一个函数作用域中的变量时产生闭包
 
-function test() {
-	if (false) {
-		var a = 2 // 无块作用域 a=undefine
-	}
-
-	function fn1() {
-		a++ // 产生闭包 a=undefine
-		var b = 2
-
-		function fn2() {
-			a++ // 不使用变量b时不产生新闭包，可见闭包是为了锁住要访问的变量，a由fn1进行保存，fn2直接使用 
-			// b++
-			// console.log(b) // 当使用fn1的变量b时,fn2产生闭包， 且在进入fn2时因为变量提升立即产生闭包
-		}
-		return fn2
-	}
-
-	var f = fn1()
-	f() // 3
-	f() // 4 执行完此句，fn2再无调用，依据调用栈顺序释放fn2 fn1闭包
-
-	b++ // 此处可观察到fn1和fn2的闭包已释放 
-	// 且报错“b is not define.”由于js没有块级作用域， 其由花括号封闭的var变量会被自动添加到最接近的环境中。 
-	// 因此b的作用域是fn1函数局部环境，⭐️⭐️⭐️a的作用域是test函数局部环境。
-	console.log(b)
+// function test() {
+if (false) {
+	var a = 2 // 无块作用域 a=undefine
 }
+
+function fn1() {
+	a++ // 产生闭包 a=undefine
+	var b = 2
+
+	var fn2 = function() {
+		// function fn2() {
+		a++ // 不使用变量b时不产生新闭包，可见闭包是为了锁住要访问的变量，a由fn1进行保存，fn2引用闭包使用 
+		b++
+		console.log(b) // 当使用fn1的变量b时,fn2产生闭包， 且在进入fn2时因为变量提升立即产生闭包
+	}
+	return fn2
+}
+
+var f = fn1()
+f() // 3
+f() // 4 执行完此句，fn2再无调用，依据调用栈顺序释放fn2 fn1闭包
+
+// b++ // 此处可观察到fn1和fn2的闭包已释放 
+// // 且报错“b is not define.”由于js没有块级作用域， 其由花括号封闭的var变量会被自动添加到最接近的环境中。 
+// // 因此b的作用域是fn1函数局部环境，⭐️⭐️⭐️a的作用域是test函数局部环境。
+// console.log(b)
+// }
+
+
+function fun(n, o) {
+	console.log(o)
+	return {
+		fun: function(m) {
+			return fun(m, n)
+		}
+	}
+}
+
+var a = fun(0) // undefined
+a.fun(1)
+a.fun(2)
+a.fun(3)
+
+var b = fun(0).fun(1).fun(2).fun(3)
+var c = fun(0).fun(1)
+c.fun(2)
+c.fun(3)
+
+//1. 原型继承
+function Supper() {
+	this.supProp = 'super property'
+}
+
+function Sub() {
+	this.subProp = 'Sub property'
+}
+
+Supper.prototype.showSupperProp = function() {
+	console.log(this.supProp)
+}
+
+// 利用原型链实现继承
+// 子类型的原型 = 父类型的一个实例对象
+Sub.prototype = new Supper()
+// 让子类型的原型的constructor指向子类型
+Sub.prototype.console = Sub()
+Sub.prototype.showSubProp = function() {
+	console.log(this.subProp)
+}
+
+var sub = new Sub()
+sub.showSupperProp()
+sub.toString()
+
+//2. 组合继承
+function Person(name, age) {
+	this.name = name
+	this.age = age
+}
+
+Person.prototype.setName = function(name) {
+	this.name = name
+}
+
+function Student(name, age, price) {
+	Person.call(this, name, age)
+	this.price = price
+}
+
+Student.prototype = new Person()
+Student.prototype.constructor = Student
+Student.prototype.setPrice = function(price) {
+	this.price = price
+}
+
+var s = new Student('Tom', 24, 15000)
+s.setName('Bob')
+s.setPrice(13000)
+console.log(s.name, s.age, s.price)
