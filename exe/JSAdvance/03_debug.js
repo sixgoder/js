@@ -97,7 +97,7 @@ var c = fun(0).fun(1)
 c.fun(2)
 c.fun(3)
 
-//1. 原型继承
+//1. 原型链继承
 function Supper() {
 	this.supProp = 'super property'
 }
@@ -112,9 +112,9 @@ Supper.prototype.showSupperProp = function() {
 
 // 利用原型链实现继承
 // 子类型的原型 = 父类型的一个实例对象
-Sub.prototype = new Supper()
+Sub.prototype = new Supper() // 继承父类方法
 // 让子类型的原型的constructor指向子类型
-Sub.prototype.console = Sub()
+Sub.prototype.console = Sub() //修正constructor属性
 Sub.prototype.showSubProp = function() {
 	console.log(this.subProp)
 }
@@ -123,7 +123,7 @@ var sub = new Sub()
 sub.showSupperProp()
 sub.toString()
 
-//2. 组合继承
+//2. 借用构造函数继承
 function Person(name, age) {
 	this.name = name
 	this.age = age
@@ -132,9 +132,9 @@ function Person(name, age) {
 Person.prototype.setName = function(name) {
 	this.name = name
 }
-
+// 3. 组合继承
 function Student(name, age, price) {
-	Person.call(this, name, age)
+	Person.call(this, name, age) //继承属性
 	this.price = price
 }
 
