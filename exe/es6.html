@@ -10,100 +10,138 @@
 
 <body>
     <script>
+        // Symbol
+        {
+            let youxi = {
+                name: '乒乓',
+                [Symbol.for('say')]: function () {
+                    console.log('我可以发言')
+                },
+                [Symbol('fire')]: function () {
+                    console.log('我可以发球')
+                }
+            }
+            youxi[Symbol.for('say')]()
 
-        // let youxi = {
-        //     name: '乒乓',
-        //     [Symbol.for('say')]: function() {
-        //         console.log('我可以发言')
-        //     },
-        //     [Symbol('fire')]: function() {
-        //         console.log('我可以发球')
-        //     }
-        // }
-        // youxi[Symbol.for('say')]()
+            const banji = {
+                name: "三年二班",
+                stus: [
+                    'xiaoming',
+                    'xiaoning',
+                    'xiaotian',
+                    'knight'
+                ],
+                [Symbol.iterator]() {
+                    let index = 0
+                    let _this = this
+                    return {
+                        next: function () {
+                            if (index < _this.stus.length) {
+                                const result = { value: _this.stus[index], done: false }
+                                index++
+                                return result
+                            } else {
+                                return { value: undefined, done: true }
+                            }
+                        }
+                    }
+                }
+            }
+            for (let v of banji) {
+                console.log(v)
+            }
+        }
 
-        // const banji = {
-        //     name: "三年二班",
-        //     stus: [
-        //         'xiaoming',
-        //         'xiaoning',
-        //         'xiaotian',
-        //         'knight'
-        //     ],
-        //     [Symbol.iterator]() {
-        //         let index = 0
-        //         let _this = this
-        //         return {
-        //             next: function() {
-        //                 if (index < _this.stus.length) {
-        //                     const result = {value: _this.stus[index], done: false}
-        //                     index++
-        //                     return result
-        //                 } else {
-        //                     return {value: undefined, done: true}
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // for (let v of banji) {
-        //     console.log(v)
-        // }
+        //生成器函数：异步回调
+        {
+            function* gen(arg) {
+                console.log(arg)
+                let one = yield 111;
+                console.log(one)
+                let two = yield 222
+                console.log(two)
+                let three = yield 333
+                console.log(three)
+            }
 
-        // function * gen(arg) {
-        //     console.log(arg)
-        //     let one = yield 111;
-        //        console.log(one)
-        //     let two = yield 222
-        //     console.log(two)
-        //     let three = yield 333
-        //     console.log(three)
-        // }
+            let iterator = gen('AAA')
+            console.log(iterator.next())
+            console.log(iterator.next('BBB'))
 
-        // let iterator = gen('AAA')
-        // console.log(iterator.next())
-        // console.log(iterator.next('BBB'))
-
-        // setTimeout(() => {
-        //     console.log(111)
-        //     setTimeout(() => {
-        //         console.log(222)
-        //         setTimeout(() => {
-        //             console.log(333)
-        //         }, 3000);
-        //     }, 2000);
-        // }, 1000);
-
-        // 生成器函数解决回调地狱实例
-        // 实现异步回调
-        ;function one() {
             setTimeout(() => {
-                iterator.next(111)
+                console.log(111)
+                setTimeout(() => {
+                    console.log(222)
+                    setTimeout(() => {
+                        console.log(333)
+                    }, 3000);
+                }, 2000);
             }, 1000);
         }
 
-        ;function two(arg) {
-            setTimeout(() => {
-                iterator.next(arg * 2)
-            }, 2000);
+        // 生成器函数解决回调地狱实例
+        // 实现异步回调
+        {
+            ; function one() {
+                setTimeout(() => {
+                    iterator.next(111)
+                }, 1000);
+            }
+
+            ; function two(arg) {
+                setTimeout(() => {
+                    iterator.next(arg * 2)
+                }, 2000);
+            }
+
+            ; function three(arg) {
+                setTimeout(() => {
+                    iterator.next(arg * 2)
+                }, 3000);
+            }
+
+            ; function* gen() {
+                let user = yield one()
+                console.log(user)
+                let order = yield two(user)
+                console.log(order)
+                let good = yield three(order)
+                console.log(good)
+            }
+            let iterator = gen()
+            iterator.next()
         }
 
-        ;function three(arg) {
-            setTimeout(() => {
-                iterator.next(arg * 2)
-            }, 3000);
+        {
+            let arr = [1, 2, 3, 4, 5, 4, 3, 2, 1]
+            //1.数组去重
+            let result = [...new Set(arr)]
+            console.log(result)
+            //2.交集
+            let arr2 = [4, 5, 6, 5, 6]
+            let unite = [...new Set(arr)].filter(item => new Set(arr2).has(item))
+            console.log(unite)
+            //3.并集
+            let union = [...new Set([...arr, ...arr2])];
+            console.log(union)
+            //4.差集
+            let diff = [...new Set(arr)].filter(item => !new Set(arr2).has(item))
+            console.log(diff)
         }
 
-        ;function *gen(){
-            let user = yield one()
-            console.log(user)
-            let order = yield two(user)
-            console.log(order)
-            let good = yield three(order)
-            console.log(good)
+
+        // class的静态成员变量
+        {
+            class phone {
+                // 静态成员变量 属于类 不属于实例对象
+                // ES5中 适用于构造函数
+                static name = "nokia"
+                size = 5.5
+            }
+            console.log(phone.name)
+            let myphone = new phone()
+            console.log(myphone.size)
         }
-        let iterator = gen()
-        iterator.next()
 
     </script>
 </body>
