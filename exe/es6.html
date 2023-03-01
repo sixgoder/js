@@ -1,52 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
 
-        let youxi = {
-            name: '乒乓',
-            [Symbol.for('say')]: function() {
-                console.log('我可以发言')
-            },
-            [Symbol('fire')]: function() {
-                console.log('我可以发球')
-            }
-        }
-        youxi[Symbol.for('say')]()
+        // let youxi = {
+        //     name: '乒乓',
+        //     [Symbol.for('say')]: function() {
+        //         console.log('我可以发言')
+        //     },
+        //     [Symbol('fire')]: function() {
+        //         console.log('我可以发球')
+        //     }
+        // }
+        // youxi[Symbol.for('say')]()
 
-        const banji = {
-            name: "三年二班",
-            stus: [
-                'xiaoming',
-                'xiaoning',
-                'xiaotian',
-                'knight'
-            ],
-            [Symbol.iterator]() {
-                let index = 0
-                let _this = this
-                return {
-                    next: function() {
-                        if (index < _this.stus.length) {
-                            const result = {value: _this.stus[index], done: false}
-                            index++
-                            return result
-                        } else {
-                            return {value: undefined, done: true}
-                        }
-                    }
-                }
-            }
+        // const banji = {
+        //     name: "三年二班",
+        //     stus: [
+        //         'xiaoming',
+        //         'xiaoning',
+        //         'xiaotian',
+        //         'knight'
+        //     ],
+        //     [Symbol.iterator]() {
+        //         let index = 0
+        //         let _this = this
+        //         return {
+        //             next: function() {
+        //                 if (index < _this.stus.length) {
+        //                     const result = {value: _this.stus[index], done: false}
+        //                     index++
+        //                     return result
+        //                 } else {
+        //                     return {value: undefined, done: true}
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // for (let v of banji) {
+        //     console.log(v)
+        // }
+
+        // function * gen(arg) {
+        //     console.log(arg)
+        //     let one = yield 111;
+        //        console.log(one)
+        //     let two = yield 222
+        //     console.log(two)
+        //     let three = yield 333
+        //     console.log(three)
+        // }
+
+        // let iterator = gen('AAA')
+        // console.log(iterator.next())
+        // console.log(iterator.next('BBB'))
+
+        // setTimeout(() => {
+        //     console.log(111)
+        //     setTimeout(() => {
+        //         console.log(222)
+        //         setTimeout(() => {
+        //             console.log(333)
+        //         }, 3000);
+        //     }, 2000);
+        // }, 1000);
+
+        // 生成器函数解决回调地狱实例
+        // 实现异步回调
+        ;function one() {
+            setTimeout(() => {
+                iterator.next(111)
+            }, 1000);
         }
-        for (let v of banji) {
-            console.log(v)
+
+        ;function two(arg) {
+            setTimeout(() => {
+                iterator.next(arg * 2)
+            }, 2000);
         }
+
+        ;function three(arg) {
+            setTimeout(() => {
+                iterator.next(arg * 2)
+            }, 3000);
+        }
+
+        ;function *gen(){
+            let user = yield one()
+            console.log(user)
+            let order = yield two(user)
+            console.log(order)
+            let good = yield three(order)
+            console.log(good)
+        }
+        let iterator = gen()
+        iterator.next()
+
     </script>
 </body>
+
 </html>
