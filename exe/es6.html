@@ -143,7 +143,7 @@
             console.log(myphone.size)
         }
 
-        // 实现继承
+        // ES5实现构造函数继承
         {
             function Phone(brand, price) {
                 this.brand = brand
@@ -170,6 +170,39 @@
 
             const chuizi = new SmartPhone('cz', 2499, 'black', '5.5inch')
             console.log(chuizi)
+        } 
+
+        // ES6实现class继承
+        {
+            class Phone{
+                constructor(brand, price) {
+                    this.brand = brand
+                    this.price = price
+                }
+
+                call(){
+                    console.log('phone')
+                }
+            }
+
+            class SmartPhone extends Phone {
+                constructor(brand, price, color, size) {
+                    super(brand, price)
+                    this.color = color
+                    this.size = size
+                }
+
+                photo(){
+                    console.log('photo')
+                }
+
+                playGame(){
+                    console.log('play game')
+                }
+            }
+
+            const xiaomi = new SmartPhone('mi', 799, 'black', '4.7inch')
+            console.log(xiaomi)
         }
 
     </script>
